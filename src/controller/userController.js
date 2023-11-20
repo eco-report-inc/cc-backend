@@ -1,0 +1,45 @@
+const { PrismaClient } = require('@prisma/client');
+const generateAccessToken = require('../../helper/generateToken');
+
+const prisma = new PrismaClient();
+const register = async (req, res) => {
+  const { nama, email, password } = req.body;
+  try {
+    const user = await prisma.user.create({
+      data: {
+        nama,
+        email,
+        password,
+      },
+    });
+    res.status(201).json({
+      message: 'Sukses Melakukan Registrasi',
+      token: generateAccessToken(user.user_id, user.email),
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ error: error.message });
+  }
+};
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+        password,
+      },
+    });
+    if (user == null) {
+      return res.status(404).json({ message: 'User Tidak Ditemukan' });
+    }
+    return res.status(200).json({
+      message: 'Berhasil Melakukan Autentikasi',
+      token: generateAccessToken(user.user_id, user.email),
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ error: error.message });
+  }
+};
+module.exports = { register, login };
