@@ -42,4 +42,14 @@ const login = async (req, res) => {
     return res.json({ error: error.message });
   }
 };
-module.exports = { register, login };
+
+const logout = async (req, res) => {
+  res.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500);
+    }
+    return res.json({ message: 'Logout successful' });
+  });
+};
+module.exports = { register, login, logout };
