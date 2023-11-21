@@ -27,7 +27,7 @@ model Report {
   nama_tempat    String  @db.VarChar(100)
   lang           String
   long           String
-  jumlah_laporan Int
+  jumlah_laporan Int     @default(1)
   Image          Image[]
 }
 

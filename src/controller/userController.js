@@ -1,11 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { validationResult } = require('express-validator');
 const generateAccessToken = require('../../helper/generateToken');
 
 const prisma = new PrismaClient();
 const register = async (req, res) => {
   const { nama, email, password } = req.body;
-  if (!nama || !email || !password) {
-    return res.status(400).json({ error: 'wajib diisi' });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
   try {
     const user = await prisma.user.create({
@@ -26,6 +29,10 @@ const register = async (req, res) => {
 };
 const login = async (req, res) => {
   const { email, password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const user = await prisma.user.findUnique({
       where: {
