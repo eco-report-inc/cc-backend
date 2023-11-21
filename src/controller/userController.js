@@ -4,6 +4,9 @@ const generateAccessToken = require('../../helper/generateToken');
 const prisma = new PrismaClient();
 const register = async (req, res) => {
   const { nama, email, password } = req.body;
+  if (!nama || !email || !password) {
+    return res.status(400).json({ error: 'wajib diisi' });
+  }
   try {
     const user = await prisma.user.create({
       data: {
@@ -12,13 +15,13 @@ const register = async (req, res) => {
         password,
       },
     });
-    res.status(201).json({
+    return res.status(201).json({
       message: 'Sukses Melakukan Registrasi',
       token: generateAccessToken(user.user_id, user.email),
     });
   } catch (error) {
     console.log(error.message);
-    res.json({ error: error.message });
+    return res.json({ error: error.message });
   }
 };
 const login = async (req, res) => {
@@ -39,7 +42,7 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    return res.json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
