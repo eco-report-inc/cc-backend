@@ -34,4 +34,20 @@ const addReport = async (req, res) => {
   }
 };
 
-module.exports = { addReport };
+const deleteReport = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.report.delete({
+      where: {
+        report_id: id
+      }
+    });
+    return res.status(201).json({
+      message: 'delete success'
+    });
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
+};
+
+module.exports = { addReport, deleteReport };

@@ -1,7 +1,7 @@
 const express = require('express');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { body } = require('express-validator');
-const { addReport } = require('../controller/reportController');
+const { addReport, deleteReport } = require('../controller/reportController');
 
 const router = express.Router();
 
@@ -12,4 +12,6 @@ router.post(
   body('long').notEmpty().withMessage('Longitude Wajib Di isi'),
   addReport
 );
+
+router.delete('/report/:id', deleteReport);
 module.exports = router;
