@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "hale-boulevard-402803",
+  "private_key_id": "53cdcfcceaf983f85907671f6654968ac91870f5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD4+cDOq89Vphcg\nHU8t/6mqASoU35faaBiS+EUQt/1OFVtHlDJ3tzIDaMJXvDk8ZsAzpn1+6SY8Q2F7\nkXlCb3dUhJRKku5SobPmu7DFUwoPieb5DCWzzJ6l+k9oipPSLsO9sstSio+KKo3R\nOLWyM9uGASoPMl2L1+T6dhYhj7FTv7qnH8BMYAbIur/v+/J3tiKUR5k4lS1B20kL\nOyVN+H6MdomzxT9aI/nLJfxaNGBR/6mcdnlWbV+hBiEoDWzLje4xHnURMsbbuzqK\nPSSiSF+/ZyR9AYd3rmyU+1j8QQTulx5EZYsweukPvK8tG1TfW3ccEEI3aO4vIdWN\nSsa6CI33AgMBAAECggEACb2bsXo/TlaFKRh8dIxAEwqgnthwlHbmHznfWdwY6Okk\n/RPrNYvRRRjgIZaXlqlec6bb2g89E7Z/Jdp3KAY8YO4e7xv4fvsckrZdIBszlZAL\nnUrAXtxuiIfWe3yQc/Soa8+G7N/G5dzsV3ckhKhKul9pSdbqmgIET1g3XXDFu0T9\nQxO7pOzfFcXHMLBMzIg0A4osvzDHbxg2lDb/Oo0y0IvgAsHPgreT7RiJ5m/WxJ9S\npXB/vjuIwDtaR1+i96k6E/whklKblm6WqJTOshv14Cio6B8p1D729eM5q0ZaVlo0\nuxhSqNIHggcv6yVrtKpue/DpSiKCp04fU0KLtuU0QQKBgQD+1lHYAVSJAE2lsmyg\nJuXyAkML4qHIQd8VA2SLS9KIAsJQUnxkZV5qeR3/nCWbHUOOQUXToN36OngIeqRM\nhwrBADPLkLQZJtat/VQMPKbyNOtPT3yTWuEymhE/zBSV8joWmljH/4WCWSpoi5Oj\nF9J7HECp+9C1M0PlWmwTUermuQKBgQD6HJYfV1/CNisb/bXpmJnR8aZFT87KDf+h\narnm7u+C8awuVYVVgwpjUmJYs4ASo41z8QqWqNouT2GD1lrqBcp9vnl7umLuTTyz\nxazcmUjEl88yJ4WOuuATjhDh0x3lIXN8jTCH+C2uMhvdwvGkyoRG2FVDQs2pBvjV\nTXD5jZDCLwKBgQDRfnbB0DYiejFa6hcKgW+/R8S+XI0LB7vQln1tVeO5FCuRxH2m\nOv8nIHJc04zGu4Pxyg8RLsnND4vlzIyMrOdWSkhKLKchliAd4Ifbl3DW5FIdXQbY\nTHmdE7Lic27o5byDIFej8pda1NpcH4I7LTZHJq6yDuVAUOib/32hVFJ7YQKBgQDO\nh257oOXE9H/ylDV0GHvkPhwjnfxPIvIU85FhHaqPwUqB1ELO0u9wBqaJQmgefAmh\nVMh+kh3gIdKPUCEwn+mOnguo3Mc2qnbWqAPPAZByLj1819/UdYH1A9ny8Cb+fvnj\nPp91l7z43A3guEpb3pMOATOe3/n9enFdiZ4hpAGGJwKBgQCih9rix1FLhme0LobJ\np4YDy+ARr4fmJq4pP9ITRLLDKQGh5MC29wtfKdtUPlCyPFu3VteBew0FVDL6w5+G\njcQ9aXy13wTmmRg2jyhZQKAFfS0TiDL2vA7yA2qmpSHxKwRguuZjExBWNZB8CiNl\n+oDRxwpTloQh2VFqarrrzs+rBQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "ecobucket-service-acc@hale-boulevard-402803.iam.gserviceaccount.com",
+  "client_id": "111107785326317301241",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ecobucket-service-acc%40hale-boulevard-402803.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
