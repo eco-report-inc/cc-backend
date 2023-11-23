@@ -7,6 +7,21 @@ const uploadFiles = require('../../helper/uploadFile');
 
 const prisma = new PrismaClient();
 
+const getAllReport = async (req, res) => {
+  try {
+    const report = await prisma.report.findMany({
+      include: {
+        Image: true,
+      },
+    });
+    if (report == null) {
+      return res.status(200).json({ message: 'Data Kosong' });
+    }
+    return res.status(200).json({ message: 'Sukses', data: report });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 const addReport = async (req, res) => {
   const { nama_tempat, lang, long } = req.body;
   const errors = validationResult(req);
@@ -55,7 +70,7 @@ const deleteReport = async (req, res) => {
         report_id: id,
       },
     });
-    return res.status(201).json({
+    return res.status(200).json({
       message: 'delete success',
     });
   } catch (error) {
@@ -63,4 +78,4 @@ const deleteReport = async (req, res) => {
   }
 };
 
-module.exports = { addReport, deleteReport };
+module.exports = { addReport, deleteReport, getAllReport };

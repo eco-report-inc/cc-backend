@@ -1,11 +1,16 @@
 const express = require('express');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { body } = require('express-validator');
-const { addReport, deleteReport } = require('../controller/reportController');
+const {
+  addReport,
+  deleteReport,
+  getAllReport,
+} = require('../controller/reportController');
 const multerMiddleware = require('../../helper/multerConfig');
 
 const router = express.Router();
 
+router.get('/report', getAllReport);
 router.post(
   '/report',
   multerMiddleware.array('gambar'),
