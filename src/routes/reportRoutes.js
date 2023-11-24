@@ -1,4 +1,7 @@
 const express = require('express');
+const multer = require('multer');
+
+const upload = multer();
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { body } = require('express-validator');
 const {
@@ -6,6 +9,7 @@ const {
   deleteReport,
   getAllReport,
   getOneReport,
+  updateReport,
 } = require('../controller/reportController');
 const multerMiddleware = require('../../helper/multerConfig');
 
@@ -13,6 +17,7 @@ const router = express.Router();
 
 router.get('/report', getAllReport);
 router.get('/report/:id', getOneReport);
+router.patch('/updatereport/:id', upload.none(), updateReport);
 router.post(
   '/report',
   multerMiddleware.array('gambar'),

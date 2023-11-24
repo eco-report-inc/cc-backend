@@ -46,6 +46,7 @@ const getAllReport = async (req, res) => {
     }
     return res.status(200).json({ message: 'Sukses', data: report });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -114,6 +115,29 @@ const addReport = async (req, res) => {
   }
 };
 
+const updateReport = async (req, res) => {
+  const { id } = req.params;
+  const { nama_tempat, lang, long } = req.body;
+  console.log(`${id}, ${nama_tempat}, ${lang}, ${long}`);
+  try {
+    const updatedReport = await prisma.report.update({
+      where: { report_id: id },
+      data: {
+        nama_tempat,
+        lang,
+        long,
+      }
+    });
+    return res.status(200).json({
+      data: updatedReport,
+      message: 'Update successfully'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.json({ message: error.message });
+  }
+};
+
 const deleteReport = async (req, res) => {
   const { id } = req.params;
   try {
@@ -131,5 +155,5 @@ const deleteReport = async (req, res) => {
 };
 
 module.exports = {
-  addReport, deleteReport, getAllReport, getOneReport,
+  addReport, deleteReport, getAllReport, getOneReport, updateReport
 };
