@@ -22,6 +22,31 @@ const getAllReport = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+const getOneReport = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const report = await prisma.report.findUnique({
+      where: {
+        report_id: id
+      },
+      include: {
+        Image: true,
+      }
+    });
+    if (!report) return res.status(404).json({ message: 'report tidak ditemukan' });
+    return res.status(200).json({
+      data: report
+    });
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      message: error.message
+    });
+  }
+};
+
 const addReport = async (req, res) => {
   const { nama_tempat, lang, long } = req.body;
   const errors = validationResult(req);
@@ -78,4 +103,6 @@ const deleteReport = async (req, res) => {
   }
 };
 
-module.exports = { addReport, deleteReport, getAllReport };
+module.exports = {
+  addReport, deleteReport, getAllReport, getOneReport,
+};

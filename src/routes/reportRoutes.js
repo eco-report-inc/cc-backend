@@ -5,12 +5,14 @@ const {
   addReport,
   deleteReport,
   getAllReport,
+  getOneReport,
 } = require('../controller/reportController');
 const multerMiddleware = require('../../helper/multerConfig');
 
 const router = express.Router();
 
 router.get('/report', getAllReport);
+router.get('/report/:id', getOneReport);
 router.post(
   '/report',
   multerMiddleware.array('gambar'),
