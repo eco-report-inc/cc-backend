@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+/* eslint-disable operator-linebreak */
+
 const { PrismaClient } = require('@prisma/client');
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -8,13 +10,38 @@ const uploadFiles = require('../../helper/uploadFile');
 const prisma = new PrismaClient();
 
 const getAllReport = async (req, res) => {
+  const { long, lang } = req.query;
+  let report = '';
   try {
-    const report = await prisma.report.findMany({
-      include: {
-        Image: true,
-      },
-    });
-    if (report == null) {
+    if (
+      typeof long !== 'undefined' &&
+      long !== '' &&
+      typeof lang !== 'undefined' &&
+      lang !== ''
+    ) {
+      report = await prisma.report.findMany({
+        where: {
+          AND: {
+            long: {
+              equals: long,
+            },
+            lang: {
+              equals: lang,
+            },
+          },
+        },
+        include: {
+          Image: true,
+        },
+      });
+    } else {
+      report = await prisma.report.findMany({
+        include: {
+          Image: true,
+        },
+      });
+    }
+    if (report.length === 0) {
       return res.status(200).json({ message: 'Data Kosong' });
     }
     return res.status(200).json({ message: 'Sukses', data: report });
