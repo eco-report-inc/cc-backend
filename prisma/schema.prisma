@@ -16,6 +16,7 @@ model User {
   nama      String   @db.VarChar(64)
   email     String   @unique @db.VarChar(50)
   password  String   @db.VarChar(40)
+  address   String   @db.VarChar(40)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -5,7 +5,9 @@ const generateAccessToken = require('../../helper/generateToken');
 
 const prisma = new PrismaClient();
 const register = async (req, res) => {
-  const { nama, email, password } = req.body;
+  const {
+    nama, email, password, address,
+  } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -16,6 +18,7 @@ const register = async (req, res) => {
         nama,
         email,
         password,
+        address
       },
     });
     return res.status(201).json({
