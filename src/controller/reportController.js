@@ -57,20 +57,22 @@ const getOneReport = async (req, res) => {
   try {
     const report = await prisma.report.findUnique({
       where: {
-        report_id: id
+        report_id: id,
       },
       include: {
         Image: true,
-      }
+      },
     });
-    if (!report) return res.status(404).json({ message: 'report tidak ditemukan' });
+    if (!report) {
+      return res.status(404).json({ message: 'report tidak ditemukan' });
+    }
     return res.status(200).json({
-      data: report
+      data: report,
     });
   } catch (error) {
     console.log(error);
     return res.json({
-      message: error.message
+      message: error.message,
     });
   }
 };
@@ -111,7 +113,7 @@ const addReport = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
 
@@ -126,11 +128,11 @@ const updateReport = async (req, res) => {
         nama_tempat,
         lang,
         long,
-      }
+      },
     });
     return res.status(200).json({
       data: updatedReport,
-      message: 'Update successfully'
+      message: 'Update successfully',
     });
   } catch (error) {
     console.log(error);
@@ -155,5 +157,9 @@ const deleteReport = async (req, res) => {
 };
 
 module.exports = {
-  addReport, deleteReport, getAllReport, getOneReport, updateReport
+  addReport,
+  deleteReport,
+  getAllReport,
+  getOneReport,
+  updateReport,
 };
