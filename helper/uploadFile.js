@@ -8,9 +8,17 @@ const uploadFiles = async (files) => {
   });
   const bucket = gcs.bucket(process.env.BUCKET_NAME);
   const promises = [];
-
+  const newFileNames = [];
+  const dateNow = new Date().toISOString();
   files.forEach((file) => {
-    const blob = bucket.file(file.originalname);
+    const originalNameWithoutExtension = file.originalname
+      .split('.')
+      .slice(0, -1)
+      .join('.');
+    const extension = file.originalname.split('.').pop();
+    const newFileName = `${originalNameWithoutExtension}-${dateNow}.${extension}`;
+    newFileNames.push(newFileName);
+    const blob = bucket.file(newFileName);
     const blobStream = blob.createWriteStream();
 
     const promise = new Promise((resolve, reject) => {
@@ -29,7 +37,7 @@ const uploadFiles = async (files) => {
 
   try {
     await Promise.all(promises);
-    return 'File Berhasil Di Upload';
+    return newFileNames;
   } catch (err) {
     console.log(err);
     return 'File Gagal Di Upload';

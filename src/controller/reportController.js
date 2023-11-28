@@ -39,6 +39,9 @@ const getAllReport = async (req, res) => {
         include: {
           Image: true,
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
       });
     }
     if (report.length === 0) {
@@ -84,11 +87,11 @@ const addReport = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    await uploadFiles(req.files);
-    const fileNames = [];
-    req.files.forEach((element) => {
-      fileNames.push({
-        gambar: `https://storage.googleapis.com/${process.env.BUCKET_NAME}/${element.originalname}`,
+    const fileNames = await uploadFiles(req.files);
+    const fileNamesStore = [];
+    fileNames.forEach((element) => {
+      fileNamesStore.push({
+        gambar: `https://storage.googleapis.com/${process.env.BUCKET_NAME}/${element}`,
       });
     });
     await prisma.report.create({
@@ -103,7 +106,7 @@ const addReport = async (req, res) => {
         },
         Image: {
           createMany: {
-            data: fileNames,
+            data: fileNamesStore,
           },
         },
       },
@@ -112,7 +115,7 @@ const addReport = async (req, res) => {
       message: 'Sukses Melakukan Report',
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return res.status(400).json({ error: error.message });
   }
 };
