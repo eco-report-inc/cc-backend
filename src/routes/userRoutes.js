@@ -1,7 +1,14 @@
 const express = require('express');
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { body } = require('express-validator');
-const { register, login, logout } = require('../controller/userController');
+const { body, check } = require('express-validator');
+const {
+  register,
+  login,
+  logout,
+  uploadPhoto,
+} = require('../controller/userController');
+const multerMiddleware = require('../../helper/multerConfig');
+const authenticateToken = require('../../helper/middleware');
 
 const router = express.Router();
 router.post(
@@ -36,6 +43,25 @@ router.post(
     .notEmpty()
     .withMessage('Password Wajib Di Isi'),
   login
+);
+router.patch(
+  '/upload-photo',
+  authenticateToken,
+  (req, res, next) => {
+    multerMiddleware(req, res, (err) => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
+      return next();
+    });
+  },
+  check('gambar').custom((value, { req }) => {
+    if (!req.files || req.files.length === 0) {
+      throw new Error('Gambar Wajib Di isi');
+    }
+    return true;
+  }),
+  uploadPhoto
 );
 router.get('/logout', logout);
 module.exports = router;

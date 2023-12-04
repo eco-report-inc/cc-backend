@@ -1,13 +1,14 @@
+/* eslint-disable object-curly-newline */
 const { PrismaClient } = require('@prisma/client');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { validationResult } = require('express-validator');
 const generateAccessToken = require('../../helper/generateToken');
+const uploadFiles = require('../../helper/uploadFile');
 
 const prisma = new PrismaClient();
 const register = async (req, res) => {
-  const {
-    nama, email, password, address,
-  } = req.body;
+  const { nama, email, password, address } = req.body;
+  const foto = 'default-profile.png';
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -18,7 +19,8 @@ const register = async (req, res) => {
         nama,
         email,
         password,
-        address
+        address,
+        foto,
       },
     });
     return res.status(201).json({
@@ -55,7 +57,30 @@ const login = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
-
+const uploadPhoto = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    let foto = await uploadFiles(req.files);
+    // eslint-disable-next-line prefer-destructuring
+    foto = foto[0];
+    await prisma.user.update({
+      where: {
+        user_id: req.user.user_id,
+      },
+      data: {
+        foto,
+      },
+    });
+    return res.status(200).json({
+      message: 'Berhasil Melakukan Upload Foto',
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
 const logout = async (req, res) => {
   res.destroy((err) => {
     if (err) {
@@ -65,4 +90,4 @@ const logout = async (req, res) => {
     return res.json({ message: 'Logout successful' });
   });
 };
-module.exports = { register, login, logout };
+module.exports = { register, login, logout, uploadPhoto };
