@@ -87,13 +87,10 @@ const addReport = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const fileNames = await uploadFiles(req.files);
-    const fileNamesStore = [];
-    fileNames.forEach((element) => {
-      fileNamesStore.push({
-        gambar: `https://storage.googleapis.com/${process.env.BUCKET_NAME}/${element}`,
-      });
-    });
+    const fileNames = await uploadFiles(req.file);
+    const fileNamesStore = {
+      gambar: `https://storage.googleapis.com/${process.env.BUCKET_NAME}/${fileNames}`,
+    };
     await prisma.report.create({
       data: {
         nama_tempat,

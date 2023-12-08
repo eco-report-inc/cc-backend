@@ -13,5 +13,5 @@ const multerMiddleware = multer({
     }
     cb(null, true);
   },
-}).array('gambar');
+}).single('gambar');
 module.exports = multerMiddleware;

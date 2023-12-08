@@ -63,9 +63,8 @@ const uploadPhoto = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    let foto = await uploadFiles(req.files);
+    const foto = await uploadFiles(req.file);
     // eslint-disable-next-line prefer-destructuring
-    foto = foto[0];
     await prisma.user.update({
       where: {
         user_id: req.user.user_id,

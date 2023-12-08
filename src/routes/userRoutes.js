@@ -56,7 +56,7 @@ router.patch(
     });
   },
   check('gambar').custom((value, { req }) => {
-    if (!req.files || req.files.length === 0) {
+    if (!req.file) {
       throw new Error('Gambar Wajib Di isi');
     }
     return true;
