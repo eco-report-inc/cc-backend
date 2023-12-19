@@ -29,6 +29,7 @@ model Report {
   nama_tempat    String   @db.VarChar(100)
   lang           String
   long           String
+  deskripsi      String
   jumlah_laporan Int      @default(1)
   Image          Image[]
   createdAt      DateTime @default(now())

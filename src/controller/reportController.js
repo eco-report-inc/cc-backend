@@ -82,7 +82,7 @@ const getOneReport = async (req, res) => {
 
 const addReport = async (req, res) => {
   // eslint-disable-next-line object-curly-newline
-  const { nama_tempat, lang, long, } = req.body;
+  const { nama_tempat, lang, long, deskripsi } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -97,6 +97,7 @@ const addReport = async (req, res) => {
         nama_tempat,
         lang,
         long,
+        deskripsi,
         userId: {
           connect: {
             user_id: req.user.user_id,
