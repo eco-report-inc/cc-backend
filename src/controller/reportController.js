@@ -97,7 +97,6 @@ const addReport = async (req, res) => {
         nama_tempat,
         lang,
         long,
-        description,
         userId: {
           connect: {
             user_id: req.user.user_id,
@@ -108,6 +107,7 @@ const addReport = async (req, res) => {
             data: fileNamesStore,
           },
         },
+        description,
       },
     });
     return res.status(201).json({
